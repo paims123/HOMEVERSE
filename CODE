@@ -1,0 +1,206 @@
+package homeverse;
+
+import java.util.Scanner;
+
+public class HOMEVERSE {
+    static Scanner scanner = new Scanner(System.in);
+    
+    public static void main(String[] args) {
+         start();
+    }
+
+    public static void start() {
+        System.out.println("WELCOME TO HOMEVERSE");
+
+        System.out.println("Do you have an account? (yes/no)");
+        String haveAccount = scanner.nextLine();
+
+        if (haveAccount.equalsIgnoreCase("yes")) {
+            login();
+        } else {
+            signUp();
+            start();
+        }
+    }
+
+    public static void signUp() {
+        System.out.println("SIGN UP:");
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter Password: ");
+        String password = scanner.nextLine();
+        System.out.println("Account created successfully!");
+    }
+
+    public static void login() {
+        System.out.println("LOG IN:");
+        System.out.print("Enter Email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter Password: ");
+        String password = scanner.nextLine();
+        displayMenu();
+    }
+
+    public static void displayMenu() {
+        while (true) {
+            System.out.println("\nMENU:");
+            System.out.println("1. Home");
+            System.out.println("2. Routine");
+            System.out.println("3. Setting");
+            System.out.println("Enter your choice (1-3):");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    homeMenu();
+                    break;
+                case 2:
+                    routineMenu();
+                    break;
+                case 3:
+                    settingsMenu();
+                    break;
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+
+    public static void homeMenu() {
+        System.out.println("HOME:");
+        System.out.println("1. Living Room");
+        System.out.println("2. Bedroom1");
+        System.out.println("3. Bedroom2");
+        System.out.println("4. Master Bedroom");
+        System.out.println("5. Kitchen");
+        System.out.println("6. Study Room");
+        System.out.println("Enter your choice (1-6):");
+
+        int roomChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        String roomName = switch (roomChoice) {
+            case 1 -> "Living Room";
+            case 2 -> "Bedroom1";
+            case 3 -> "Bedroom2";
+            case 4 -> "Master Bedroom";
+            case 5 -> "Kitchen";
+            case 6 -> "Study Room";
+            default -> {
+                System.out.println("Invalid choice. Returning to menu.");
+                yield null;
+            }
+        };
+
+        if (roomName != null) {
+            deviceMenu(roomName);
+        }
+    }
+
+    public static void deviceMenu(String roomName) {
+        System.out.println(roomName + ":");
+        System.out.println("1. Fan");
+        System.out.println("2. Light");
+        System.out.println("3. A/C");
+        System.out.println("4. Curtain");
+        System.out.println("5. Add Device");
+        System.out.println("Enter your choice (1-5):");
+
+        int deviceChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        switch (deviceChoice) {
+            case 1:
+                System.out.println("Fan: Displaying speed and eco mode.");
+                break;
+            case 2:
+                System.out.println("Light: Displaying brightness and eco mode.");
+                break;
+            case 3:
+                System.out.println("A/C: Displaying temperature and eco mode.");
+                break;
+            case 4:
+                System.out.println("Curtain: Displaying slider and eco mode.");
+                break;
+            case 5:
+                System.out.println("Add Device: Redirecting to add device functionality.");
+                break;
+            default:
+                System.out.println("Invalid choice.");
+        }
+    }
+
+    public static void routineMenu() {
+        System.out.println("ROUTINE:");
+        System.out.println("1. Good Morning");
+        System.out.println("2. Good Night");
+        System.out.println("3. Rainy");
+        System.out.println("4. Going Out");
+        System.out.println("5. Add Routine");
+        System.out.println("Enter your choice (1-5):");
+
+        int routineChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        switch (routineChoice) {
+            case 1, 2, 3, 4 -> {
+                System.out.println("Routine selected. Displaying connected devices...");
+                addDeviceOption();
+            }
+            case 5 -> {
+                System.out.println("Adding a new routine...");
+                System.out.print("Enter Function: ");
+                String function = scanner.nextLine();
+                System.out.print("Enter Time: ");
+                String time = scanner.nextLine();
+                System.out.print("Enter Device: ");
+                String device = scanner.nextLine();
+                System.out.print("Enter Room: ");
+                String room = scanner.nextLine();
+                System.out.println("Routine added successfully!");
+            }
+            default -> System.out.println("Invalid choice.");
+        }
+    }
+
+    public static void addDeviceOption() {
+        System.out.println("Add Device? (yes/no):");
+        String addDevice = scanner.nextLine();
+        if (addDevice.equalsIgnoreCase("yes")) {
+            System.out.print("Enter Brand: ");
+            String brand = scanner.nextLine();
+            System.out.print("Enter Product: ");
+            String product = scanner.nextLine();
+            System.out.println("Device connected: " + brand + " " + product);
+        } else {
+            System.out.println("Returning to menu...");
+        }
+    }
+
+    public static void settingsMenu() {
+        System.out.println("SETTINGS:");
+        System.out.println("1. User Account");
+        System.out.println("2. Voice Assistant");
+        System.out.println("3. Language");
+        System.out.println("4. Log Out");
+        System.out.println("Enter your choice (1-4):");
+
+        int settingChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        switch (settingChoice) {
+            case 1 -> System.out.println("User Account: Displaying email, password, and options to change.");
+            case 2 -> System.out.println("Voice Assistant: Displaying Amazon Alexa, Google Assistant, and Naver Clova.");
+            case 3 -> System.out.println("Language: Displaying list of languages.");
+            case 4 -> {
+                System.out.println("Logging out...");
+                start();
+            }
+            default -> System.out.println("Invalid choice.");
+        }
+    }
+}
